@@ -7,6 +7,11 @@ namespace Components
     {
         [SerializeField]
         private float moveSpeed;
+
+        [SerializeField] private float sprintSpeed;
+
+        private bool isSprinting;
+        
         private Rigidbody2D rb;
 
         private void Awake()
@@ -16,12 +21,29 @@ namespace Components
 
         public void Move(Vector2 direction)
         {
-            rb.velocity = direction * moveSpeed;
+            if (!isSprinting)
+            {
+                rb.velocity = direction * moveSpeed;
+            }
+            else
+            {
+                rb.velocity = direction * sprintSpeed;
+            }
         }
 
         public float GetMoveSpeed()
         {
             return moveSpeed;
+        }
+
+        public bool GetIsSprinting()
+        {
+            return isSprinting;
+        }
+        
+        public void SetIsSprinting(bool newIsSprinting)
+        {
+            isSprinting = newIsSprinting;
         }
     }
 }
